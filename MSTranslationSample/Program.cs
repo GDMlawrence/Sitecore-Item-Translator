@@ -22,7 +22,7 @@ namespace MSTranslationSample
             string headerValue;
             //Get Client Id and Client Secret from https://datamarket.azure.com/developer/applications/
             //Refer obtaining AccessToken (http://msdn.microsoft.com/en-us/library/hh454950.aspx) 
-            AdmAuthentication admAuth = new AdmAuthentication("FXGMGB", "hh1asXtfgfpd3eba0VTjn10eQwh2oQnDIr+Fcr5CZ/o=");
+            AdmAuthentication admAuth = new AdmAuthentication("client_id", "client_secret");
             try
             {
                 admToken = admAuth.GetAccessToken();
