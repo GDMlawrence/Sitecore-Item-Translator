@@ -19,6 +19,7 @@
         
         public string Translate(string text)
         {
+            Sitecore.Diagnostics.Log.Info("Translated: " + text, "BingService");
             return client.Translate(BingApplicationId, text, FromLanguage, ToLanguage);
         }
     }

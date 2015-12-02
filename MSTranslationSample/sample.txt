@@ -1,0 +1,49 @@
+﻿<p>Justin Kingsley of Shayco Incorporated, operating out of the Tulsa station, was crowned National Step Van Champion this past weekend in Salt Lake City, Utah. Altogether, 12 competitors from Team FedEx finished in the top three spots of their respective classes, including three national champion titles.</p>
+ManagedPoolThread #3 11:30:52 INFO  Translated: <h1>Team FedEx yields three National Champions at NTDC</h1>
+<span style="font-family: arial;">Twelve Team FedEx competitors finished in the top three spots of their respective classes in the National Truck Driving Championships held this past weekend in Salt Lake City, Utah.&nbsp;Among them, three were crowned National Champions.<br />
+<br />
+<table border="0">
+    <tbody>
+        <tr>
+            <td><img alt="" width="903" height="361" src="-/media/D17A7FC4C71743F8B24805EAD0F6CA3F.ashx" /><br />
+            <span style="font-size: 13px;"><i>Photo courtesy of Stan Lindsey Photography</i><br />
+            <span style="line-height: 96%;">Left to right: Eric Courville - 2nd place, 3-Axle; Dan Jones - 3rd place, Straight Truck; Larry Rhein - 2nd place, Flatbed; Wayne Crowder - National Champion, Flatbed; Justin Kingsley - National Champion, Step Van; Roland Bolduc - National Champion, 3-Axle; Paul Brandon - 3rd place, Flatbed; Sal Vincelli - 2nd place, Step Van; Michael Forchetti
+ManagedPoolThread #3 11:30:52 INFO  Translated: - 3rd place, Step Van; Jason Matte - 3nd place, Tank Truck; Tom Griffin - 2nd place, 4-Axle; Ivan Nikolic - 3rd place, 5-Axle</span></span></td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<b>Justin Kingsley</b> of Shayco Incorporated, operating out of the Tulsa station, captured the National Champion title in the Step Van class in his first year of competing at the NTDC. Two other drivers representing FedEx helped to complete a sweep of Step Van:<br />
+<br />
+<ul>
+    <li><b>Sal Vincelli</b>, Kelynn Inc., Allentown, Pennsylvania, 2nd place </li>
+    <li><b>Mike Forchetti</b>, FedEx Express, Maryland, 3rd place </li>
+</ul>
+<b>Roland Bolduc</b>, a driver for FedEx Express domiciled in Windsor, Conn., captured the National Champion title in 3-Axle for the second consecutive year; and <b>Wayne Crowder</b>, a driver for FedEx Freight based in Louisville, Ky., took the National Champion title in Flatbed for the second time in his career. <br />
+<br />
+<b>Ivan Nikolic</b> of IN
+ManagedPoolThread #3 11:30:52 INFO  Translated: Trucking, operating out of the Chicago station, took third place in 5-Axle. <br />
+<br />
+The following drivers rounded out the top finishers for Team FedEx.<br />
+<br />
+Second place finishers:<br />
+<br />
+<ul>
+    <li><b>Eric Courville</b>, FedEx Freight, Louisiana, 3-Axle </li>
+    <li><b>Tom Griffin</b>, FedEx Freight, Connecticut, 4-Axle </li>
+    <li><b>Larry Rhein</b>, FedEx Freight, Arkansas, Flatbed </li>
+</ul>
+Third place finishers:<br />
+<br />
+<ul>
+    <li><b>Paul Brandon</b>, FedEx Freight, Connecticut, Flatbed </li>
+    <li><b>Dan Jones</b>, FedEx Freight, Kansas, Straight Truck </li>
+    <li><b>Jason Matte</b>, FedEx Freight, Mississippi, Tank Truck </li>
+</ul>
+In addition, two other FedEx state champions received awards:<br />
+<br />
+<ul>
+    <li><b>Don Logan</b>, FedEx Freight, Kansas, Vehicle Condition Award </li>
+    <li><b>Jeff Thompson</b>, FedEx Freight, Kansas, Best Written Exam </li>
+</ul>
+The annual "Super Bowl of Safety" is sponsored
