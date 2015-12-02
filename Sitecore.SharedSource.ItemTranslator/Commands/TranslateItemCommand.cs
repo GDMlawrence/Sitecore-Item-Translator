@@ -3,10 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using Data.Fields;
     using Data.Items;
     using Diagnostics;
     using Globalization;
+    using HtmlAgilityPack;
     using Jobs;
     using Shell.Applications.Dialogs.ProgressBoxes;
     using Shell.Framework.Commands;
@@ -114,18 +116,37 @@
                     }
                     else
                     {
-                        var text = sourceItem[field.Name];
-                        var translatedText = string.Empty;
-
-                        if (text.Length < MaxServiceRequestLength)
+                        if (field.TypeKey == "rich text")
                         {
-                            item[field.Name] = service.Translate(text);
-                            continue;
+                            Sitecore.Diagnostics.Log.Info("HTML Field", "Translator");
+
+                            HtmlDocument doc = new HtmlDocument();
+                            doc.LoadHtml(sourceItem[field.Name]);
+                            HtmlNodeCollection coll = doc.DocumentNode.SelectNodes("//text()[normalize-space(.) != '']");
+
+                            foreach (HtmlNode node in coll)
+                            {
+                                if (node.InnerText == node.InnerHtml)
+                                {
+                                    node.InnerHtml = service.Translate(node.InnerText);
+                                }
+                            }
+                            item[field.Name] = doc.DocumentNode.OuterHtml;
                         }
+                        else
+                        {
+                            var text = sourceItem[field.Name];
+                            var translatedText = string.Empty;
 
-                        translatedText = SplitText(text, MaxServiceRequestLength).Aggregate(translatedText, (current, textBlock) => current + service.Translate(textBlock));
+                            if (text.Length < MaxServiceRequestLength)
+                            {
+                                item[field.Name] = service.Translate(text);
+                                continue;
+                            }
+                            translatedText = SplitText(text, MaxServiceRequestLength).Aggregate(translatedText, (current, textBlock) => current + service.Translate(textBlock));
 
-                        item[field.Name] = translatedText;
+                            item[field.Name] = translatedText;
+                        }
                     }
                 }
 

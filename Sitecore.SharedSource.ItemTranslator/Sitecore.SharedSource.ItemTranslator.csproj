@@ -36,6 +36,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\GoogleTranslateAPI.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>lib\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Sitecore.Kernel, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Sitecore.Kernel.dll</HintPath>
@@ -71,7 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="App_Config\Include\Sitecore.SharedSource.ItemTranslator.config" />
+    <None Include="App_Config\Include\Sitecore.SharedSource.ItemTranslator.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\BingTranslator\soap.wsdl" />
     <None Include="Service References\BingTranslator\soap.xsd">
       <SubType>Designer</SubType>
