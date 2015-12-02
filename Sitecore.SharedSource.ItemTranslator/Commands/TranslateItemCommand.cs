@@ -66,6 +66,13 @@
                                                         item.Language.CultureInfo.TwoLetterISOLanguageName,
                                                         Sitecore.Configuration.Settings.GetSetting("BingApplicationId"));
                     }
+                case "MSTranslation":
+                    {
+                        return new MSTranslationService(BaseLanguage, 
+                            item.Language.CultureInfo.TwoLetterISOLanguageName,
+                            Sitecore.Configuration.Settings.GetSetting("MSTranslation_ClientID"),
+                            Sitecore.Configuration.Settings.GetSetting("MSTranslation_ClientSecret"));
+                    }
                 default:
                     {
                         return new GoogleTranslateService(BaseLanguage,
@@ -96,7 +103,7 @@
 
                 foreach (Field field in sourceItem.Fields)
                 {
-                    if ((string.IsNullOrEmpty(sourceItem[field.Name]) || field.Shared))
+                    if (string.IsNullOrEmpty(field.Name) || (string.IsNullOrEmpty(sourceItem[field.Name]) || field.Shared))
                     {
                         continue;
                     }
