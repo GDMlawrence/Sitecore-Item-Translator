@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Sitecore.SharedSource.ItemTranslator</RootNamespace>
     <AssemblyName>Sitecore.SharedSource.ItemTranslator</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GoogleTranslateAPI, Version=0.4.0.133, Culture=neutral, processorArchitecture=MSIL">
@@ -76,6 +78,9 @@
     <None Include="app.config" />
     <None Include="App_Config\Include\Sitecore.SharedSource.ItemTranslator.config">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\BingTranslator\Sitecore.SharedSource.ItemTranslator.BingTranslator.GetTranslationsResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\BingTranslator\soap.wsdl" />
     <None Include="Service References\BingTranslator\soap.xsd">

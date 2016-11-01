@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Alex Doroshenko")]
 [assembly: AssemblyProduct("Sitecore.Custom.Translation")]
-[assembly: AssemblyCopyright("Copyright © Alex Doroshenko 2010")]
+[assembly: AssemblyCopyright("Copyright © Michael Lawrence 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
