@@ -1,26 +1,40 @@
-﻿namespace Sitecore.SharedSource.ItemTranslator
+using Sitecore.SharedSource.ItemTranslator.BingTranslator;
+using System;
+
+namespace Sitecore.SharedSource.ItemTranslator
 {
-    using BingTranslator;
+	internal class BingTranslateService : ITranslationService
+	{
+		private readonly LanguageServiceClient client = new LanguageServiceClient();
 
-    class BingTranslateService : ITranslationService
-    {
-        private readonly LanguageServiceClient client = new LanguageServiceClient();
-        string BingApplicationId { get; set; }
+		private string BingApplicationId
+		{
+			get;
+			set;
+		}
 
-        string FromLanguage { get; set; }
-        string ToLanguage { get; set; }
+		private string FromLanguage
+		{
+			get;
+			set;
+		}
 
-        public BingTranslateService(string from, string to, string bingApplicationId)
-        {
-            FromLanguage = from;
-            ToLanguage = to;
-            BingApplicationId = bingApplicationId;
-        }
-        
-        public string Translate(string text)
-        {
-            Sitecore.Diagnostics.Log.Info("Translated: " + text, "BingService");
-            return client.Translate(BingApplicationId, text, FromLanguage, ToLanguage);
-        }
-    }
+		private string ToLanguage
+		{
+			get;
+			set;
+		}
+
+		public BingTranslateService(string from, string to, string bingApplicationId)
+		{
+			this.FromLanguage = from;
+			this.ToLanguage = to;
+			this.BingApplicationId = bingApplicationId;
+		}
+
+		public string Translate(string text)
+		{
+			return this.client.Translate(this.BingApplicationId, text, this.FromLanguage, this.ToLanguage);
+		}
+	}
 }

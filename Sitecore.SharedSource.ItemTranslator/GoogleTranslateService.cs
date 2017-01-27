@@ -1,23 +1,33 @@
-﻿namespace Sitecore.SharedSource.ItemTranslator
+using Google.API.Translate;
+using System;
+
+namespace Sitecore.SharedSource.ItemTranslator
 {
-    using Google.API.Translate;
+	internal class GoogleTranslateService : ITranslationService
+	{
+		private readonly TranslateClient client = new TranslateClient("http://google.com");
 
-    class GoogleTranslateService : ITranslationService
-    {
-        private readonly TranslateClient client = new TranslateClient("http://google.com");
+		private string FromLanguage
+		{
+			get;
+			set;
+		}
 
-        string FromLanguage { get; set; }
-        string ToLanguage { get; set; }
+		private string ToLanguage
+		{
+			get;
+			set;
+		}
 
-        public GoogleTranslateService(string from, string to)
-        {
-            FromLanguage = from;
-            ToLanguage = to;
-        }
+		public GoogleTranslateService(string from, string to)
+		{
+			this.FromLanguage = from;
+			this.ToLanguage = to;
+		}
 
-        public string Translate(string text)
-        {
-            return client.Translate(text, FromLanguage, ToLanguage);
-        }
-    }
+		public string Translate(string text)
+		{
+			return this.client.Translate(text, this.FromLanguage, this.ToLanguage);
+		}
+	}
 }

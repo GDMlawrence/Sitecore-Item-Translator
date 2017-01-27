@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{7BE4B43A-D54A-4077-AE6D-3D786DC8F0AC}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Sitecore.SharedSource.ItemTranslator</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GoogleTranslateAPI">
+      <HintPath>lib\GoogleTranslateAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>lib\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.Kernel">
+      <HintPath>lib\Sitecore.Kernel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System" />
+    <Reference Include="System.ServiceModel" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sitecore.SharedSource.ItemTranslator.BingTranslator\GetTranslationsResponse.cs" />
+    <Compile Include="Sitecore.SharedSource.ItemTranslator.BingTranslator\LanguageService.cs" />
+    <Compile Include="Sitecore.SharedSource.ItemTranslator.BingTranslator\LanguageServiceChannel.cs" />
+    <Compile Include="Sitecore.SharedSource.ItemTranslator.BingTranslator\LanguageServiceClient.cs" />
+    <Compile Include="Sitecore.SharedSource.ItemTranslator.BingTranslator\TranslateArrayResponse.cs" />
+    <Compile Include="Sitecore.SharedSource.ItemTranslator.BingTranslator\TranslateOptions.cs" />
+    <Compile Include="Sitecore.SharedSource.ItemTranslator.BingTranslator\Translation.cs" />
+    <Compile Include="Sitecore.SharedSource.ItemTranslator.BingTranslator\TranslationMatch.cs" />
+    <Compile Include="Sitecore.SharedSource.ItemTranslator.Commands\TranslateItemCommand.cs" />
+    <Compile Include="Sitecore.SharedSource.ItemTranslator.Commands\TranslateTreeCommand.cs" />
+    <Compile Include="Sitecore.SharedSource.ItemTranslator\BingTranslateService.cs" />
+    <Compile Include="Sitecore.SharedSource.ItemTranslator\GoogleTranslateService.cs" />
+    <Compile Include="Sitecore.SharedSource.ItemTranslator\ITranslationService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
