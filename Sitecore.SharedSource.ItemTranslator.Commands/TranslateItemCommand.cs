@@ -1,3 +1,4 @@
+using HtmlAgilityPack;
 using Sitecore.Configuration;
 using Sitecore.Data.Fields;
 using Sitecore.Data.Items;
@@ -8,14 +9,21 @@ using Sitecore.Shell.Applications.Dialogs.ProgressBoxes;
 using Sitecore.Shell.Framework.Commands;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Sitecore.SharedSource.ItemTranslator.Commands
 {
 	internal class TranslateItemCommand : Command
 	{
-		protected const string SourceLanguage = "en";
-
 		protected const int MaxServiceRequestLength = 1000;
+
+		protected string BaseLanguage
+		{
+			get
+			{
+				return Settings.GetSetting("BaseLanguage", "en");
+			}
+		}
 
 		public override void Execute(CommandContext context)
 		{
@@ -30,8 +38,8 @@ namespace Sitecore.SharedSource.ItemTranslator.Commands
 
 		private void TranslateItem(params object[] parameters)
 		{
-			CommandContext commandContext = parameters[1] as CommandContext;
-			if (commandContext != null)
+			CommandContext context = parameters[1] as CommandContext;
+			if (context != null)
 			{
 				Item item = parameters[0] as Item;
 				if (item != null)
@@ -43,35 +51,35 @@ namespace Sitecore.SharedSource.ItemTranslator.Commands
 
 		protected virtual Item TranslateItem(Item item)
 		{
-			ITranslationService translatorService = this.GetTranslatorService(item);
-			this.TranslateItem(item, translatorService);
+			ITranslationService translationService = this.GetTranslatorService(item);
+			this.TranslateItem(item, translationService);
 			return item;
 		}
 
 		protected ITranslationService GetTranslatorService(Item item)
 		{
-			string setting = Settings.GetSetting("TranslationProvider");
-			ITranslationService result;
-			if (setting != null)
+			string setting;
+			if ((setting = Settings.GetSetting("TranslationProvider")) != null)
 			{
 				if (setting == "Google")
 				{
-					result = new GoogleTranslateService("en", item.Language.CultureInfo.TwoLetterISOLanguageName);
-					return result;
+					return new GoogleTranslateService(this.BaseLanguage, item.Language.CultureInfo.TwoLetterISOLanguageName);
 				}
 				if (setting == "Bing")
 				{
-					result = new BingTranslateService("en", item.Language.CultureInfo.TwoLetterISOLanguageName, Settings.GetSetting("BingApplicationId"));
-					return result;
+					return new BingTranslateService(this.BaseLanguage, item.Language.CultureInfo.TwoLetterISOLanguageName, Settings.GetSetting("BingApplicationId"));
+				}
+				if (setting == "MSTranslation")
+				{
+					return new MSTranslationService(this.BaseLanguage, item.Language.CultureInfo.TwoLetterISOLanguageName, Settings.GetSetting("MSTranslation_ClientID"), Settings.GetSetting("MSTranslation_ClientSecret"));
 				}
 			}
-			result = new GoogleTranslateService("en", item.Language.CultureInfo.TwoLetterISOLanguageName);
-			return result;
+			return new GoogleTranslateService(this.BaseLanguage, item.Language.CultureInfo.TwoLetterISOLanguageName);
 		}
 
 		public void TranslateItem(Item item, ITranslationService service)
 		{
-			Item item2 = Context.ContentDatabase.GetItem(item.ID, Language.Parse("en"));
+			Item sourceItem = Context.ContentDatabase.GetItem(item.ID, Language.Parse(this.BaseLanguage));
 			Job job = Context.Job;
 			if (job != null)
 			{
@@ -82,64 +90,77 @@ namespace Sitecore.SharedSource.ItemTranslator.Commands
 			}
 			if (item.Versions.Count == 0)
 			{
-				if (item2 != null)
+				if (sourceItem == null)
 				{
-					item = item.Versions.AddVersion();
-					item.Editing.BeginEdit();
-					foreach (Field field in item2.Fields)
+					return;
+				}
+				item = item.Versions.AddVersion();
+				item.Editing.BeginEdit();
+				foreach (Field field in sourceItem.Fields)
+				{
+					if (!string.IsNullOrEmpty(field.Name) && !string.IsNullOrEmpty(sourceItem[field.Name]) && !field.Shared)
 					{
-						if (!string.IsNullOrEmpty(item2[field.Name]) && !field.Shared)
+						if (!TranslateItemCommand.FieldIsTranslatable(field) || TranslateItemCommand.FieldIsStandard(field))
 						{
-							if (!this.FieldIsTranslatable(field) || this.FieldIsStandard(field))
+							item[field.Name] = sourceItem[field.Name];
+						}
+						else if (field.TypeKey == "rich text")
+						{
+							Log.Info("HTML Field", "Translator");
+							HtmlDocument doc = new HtmlDocument();
+							doc.LoadHtml(sourceItem[field.Name]);
+							HtmlNodeCollection coll = doc.DocumentNode.SelectNodes("//text()[normalize-space(.) != '']");
+							foreach (HtmlNode node in coll)
 							{
-								item[field.Name] = item2[field.Name];
+								if (node.InnerText == node.InnerHtml)
+								{
+									node.InnerHtml = service.Translate(node.InnerText);
+								}
+							}
+							item[field.Name] = doc.DocumentNode.OuterHtml;
+						}
+						else
+						{
+							string text = sourceItem[field.Name];
+							string translatedText = string.Empty;
+							if (text.Length < 1000)
+							{
+								item[field.Name] = service.Translate(text);
 							}
 							else
 							{
-								string text = item2[field.Name];
-								string text2 = string.Empty;
-								if (text.Length < 1000)
-								{
-									item[field.Name] = service.Translate(text);
-								}
-								else
-								{
-									foreach (string current in this.SplitText(text, 1000))
-									{
-										text2 += service.Translate(current);
-									}
-									item[field.Name] = text2;
-								}
+								translatedText = TranslateItemCommand.SplitText(text, 1000).Aggregate(translatedText, (string current, string textBlock) => current + service.Translate(textBlock));
+								item[field.Name] = translatedText;
 							}
 						}
 					}
-					item.Editing.EndEdit();
 				}
+				item.Editing.EndEdit();
 			}
 		}
 
-		private bool FieldIsTranslatable(Field field)
+		private static bool FieldIsTranslatable(Field field)
 		{
 			return !(field.TypeKey == "image") && !(field.TypeKey == "reference") && !(field.TypeKey == "general link") && !(field.TypeKey == "datetime") && !(field.TypeKey == "droplink") && !(field.TypeKey == "droplist") && !(field.TypeKey == "treelist") && !(field.TypeKey == "droptree") && !(field.TypeKey == "multilist") && !(field.TypeKey == "checklist") && !(field.TypeKey == "treelistex") && !(field.TypeKey == "checkbox");
 		}
 
-		private bool FieldIsStandard(Field field)
+		private static bool FieldIsStandard(Field field)
 		{
 			return field.Definition.Template.Name == "Advanced" || field.Definition.Template.Name == "Appearance" || field.Definition.Template.Name == "Help" || field.Definition.Template.Name == "Layout" || field.Definition.Template.Name == "Lifetime" || field.Definition.Template.Name == "Insert Options" || field.Definition.Template.Name == "Publishing" || field.Definition.Template.Name == "Security" || field.Definition.Template.Name == "Statistics" || field.Definition.Template.Name == "Tasks" || field.Definition.Template.Name == "Validators" || field.Definition.Template.Name == "Workflow";
 		}
 
-		private IEnumerable<string> SplitText(string text, int numberOfSymbols)
+		private static System.Collections.Generic.IEnumerable<string> SplitText(string text, int numberOfSymbols)
 		{
-			int i = 0;
-			List<string> list = new List<string>();
-			while (i < text.Length)
+			int offset = 0;
+			System.Collections.Generic.List<string> lines = new System.Collections.Generic.List<string>();
+			while (offset < text.Length)
 			{
-				int num = text.LastIndexOf(" ", Math.Min(text.Length, i + numberOfSymbols));
-				string text2 = text.Substring(i, ((num - i <= 0) ? text.Length : num) - i);
-				i += text2.Length + 1;
-				list.Add(text2);
+				int index = text.LastIndexOf(" ", System.Math.Min(text.Length, offset + numberOfSymbols));
+				string line = text.Substring(offset, ((index - offset <= 0) ? text.Length : index) - offset);
+				offset += line.Length + 1;
+				lines.Add(line);
 			}
-			return list;
+			return lines;
 		}
 	}
 }

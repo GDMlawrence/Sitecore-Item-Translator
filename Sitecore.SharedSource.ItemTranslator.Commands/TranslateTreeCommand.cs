@@ -7,14 +7,14 @@ namespace Sitecore.SharedSource.ItemTranslator.Commands
 	{
 		protected override Item TranslateItem(Item item)
 		{
-			ITranslationService translatorService = base.GetTranslatorService(item);
-			base.TranslateItem(item, translatorService);
-			Item[] descendants = item.Axes.GetDescendants();
-			Item[] array = descendants;
+			ITranslationService translationService = base.GetTranslatorService(item);
+			base.TranslateItem(item, translationService);
+			Item[] items = item.Axes.GetDescendants();
+			Item[] array = items;
 			for (int i = 0; i < array.Length; i++)
 			{
-				Item item2 = array[i];
-				base.TranslateItem(item2, translatorService);
+				Item childItem = array[i];
+				base.TranslateItem(childItem, translationService);
 			}
 			return item;
 		}

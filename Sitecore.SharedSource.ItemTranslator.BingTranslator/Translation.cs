@@ -6,19 +6,19 @@ using System.Runtime.Serialization;
 
 namespace Sitecore.SharedSource.ItemTranslator.BingTranslator
 {
-	[GeneratedCode("System.Runtime.Serialization", "4.0.0.0"), DebuggerStepThrough, DataContract(Name = "Translation", Namespace = "http://schemas.datacontract.org/2004/07/Microsoft.MT.Web.Service.V2")]
-	[Serializable]
+	[GeneratedCode("System.Runtime.Serialization", "4.0.0.0"), System.Diagnostics.DebuggerStepThrough, DataContract(Name = "Translation", Namespace = "http://schemas.datacontract.org/2004/07/Microsoft.MT.Web.Service.V2")]
+	[System.Serializable]
 	public class Translation : IExtensibleDataObject, INotifyPropertyChanged
 	{
-		[NonSerialized]
+		[System.NonSerialized]
 		private ExtensionDataObject extensionDataField;
 
 		private string OriginalTextField;
 
-		[OptionalField]
+		[System.Runtime.Serialization.OptionalField]
 		private int RatingField;
 
-		[OptionalField]
+		[System.Runtime.Serialization.OptionalField]
 		private int SequenceField;
 
 		private string TranslatedTextField;

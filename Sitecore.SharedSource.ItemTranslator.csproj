@@ -1,14 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ProjectGuid>{7BE4B43A-D54A-4077-AE6D-3D786DC8F0AC}</ProjectGuid>
+    <ProjectGuid>{86C07477-BEB4-481E-8114-D861842936E1}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
     <AssemblyName>Sitecore.SharedSource.ItemTranslator</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <WarningLevel>4</WarningLevel>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -42,6 +41,9 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Runtime.Caching" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,6 +60,9 @@
     <Compile Include="Sitecore.SharedSource.ItemTranslator\BingTranslateService.cs" />
     <Compile Include="Sitecore.SharedSource.ItemTranslator\GoogleTranslateService.cs" />
     <Compile Include="Sitecore.SharedSource.ItemTranslator\ITranslationService.cs" />
+    <Compile Include="Sitecore.SharedSource.ItemTranslator\MSTranslationAccessToken.cs" />
+    <Compile Include="Sitecore.SharedSource.ItemTranslator\MSTranslationAuthentication.cs" />
+    <Compile Include="Sitecore.SharedSource.ItemTranslator\MSTranslationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -6,7 +6,7 @@ using System.ServiceModel.Channels;
 namespace Sitecore.SharedSource.ItemTranslator.BingTranslator
 {
 	[GeneratedCode("System.ServiceModel", "4.0.0.0")]
-	public interface LanguageServiceChannel : LanguageService, IClientChannel, IContextChannel, IChannel, ICommunicationObject, IExtensibleObject<IContextChannel>, IDisposable
+	public interface LanguageServiceChannel : LanguageService, IClientChannel, IContextChannel, IChannel, ICommunicationObject, IExtensibleObject<IContextChannel>, System.IDisposable
 	{
 	}
 }

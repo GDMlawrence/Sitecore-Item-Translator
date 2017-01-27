@@ -1,3 +1,4 @@
+using Sitecore.Diagnostics;
 using Sitecore.SharedSource.ItemTranslator.BingTranslator;
 using System;
 
@@ -34,6 +35,7 @@ namespace Sitecore.SharedSource.ItemTranslator
 
 		public string Translate(string text)
 		{
+			Log.Info("Translated: " + text, "BingService");
 			return this.client.Translate(this.BingApplicationId, text, this.FromLanguage, this.ToLanguage);
 		}
 	}
