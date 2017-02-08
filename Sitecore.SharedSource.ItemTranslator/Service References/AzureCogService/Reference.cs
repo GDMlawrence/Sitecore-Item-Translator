@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Sitecore.SharedSource.ItemTranslator.BingTranslator {
+namespace Sitecore.SharedSource.ItemTranslator.AzureCogService {
     using System.Runtime.Serialization;
     using System;
     
@@ -27,6 +27,18 @@ namespace Sitecore.SharedSource.ItemTranslator.BingTranslator {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ContentTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string GenderFromField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string GenderToField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IncludeMultipleMTAlternativesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProfanityActionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ReservedFlagsField;
@@ -72,6 +84,58 @@ namespace Sitecore.SharedSource.ItemTranslator.BingTranslator {
                 if ((object.ReferenceEquals(this.ContentTypeField, value) != true)) {
                     this.ContentTypeField = value;
                     this.RaisePropertyChanged("ContentType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string GenderFrom {
+            get {
+                return this.GenderFromField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.GenderFromField, value) != true)) {
+                    this.GenderFromField = value;
+                    this.RaisePropertyChanged("GenderFrom");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string GenderTo {
+            get {
+                return this.GenderToField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.GenderToField, value) != true)) {
+                    this.GenderToField = value;
+                    this.RaisePropertyChanged("GenderTo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public bool IncludeMultipleMTAlternatives {
+            get {
+                return this.IncludeMultipleMTAlternativesField;
+            }
+            set {
+                if ((this.IncludeMultipleMTAlternativesField.Equals(value) != true)) {
+                    this.IncludeMultipleMTAlternativesField = value;
+                    this.RaisePropertyChanged("IncludeMultipleMTAlternatives");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string ProfanityAction {
+            get {
+                return this.ProfanityActionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProfanityActionField, value) != true)) {
+                    this.ProfanityActionField = value;
+                    this.RaisePropertyChanged("ProfanityAction");
                 }
             }
         }
@@ -154,7 +218,7 @@ namespace Sitecore.SharedSource.ItemTranslator.BingTranslator {
         private string StateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Sitecore.SharedSource.ItemTranslator.BingTranslator.TranslationMatch[] TranslationsField;
+        private Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslationMatch[] TranslationsField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -193,7 +257,7 @@ namespace Sitecore.SharedSource.ItemTranslator.BingTranslator {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public Sitecore.SharedSource.ItemTranslator.BingTranslator.TranslationMatch[] Translations {
+        public Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslationMatch[] Translations {
             get {
                 return this.TranslationsField;
             }
@@ -552,64 +616,257 @@ namespace Sitecore.SharedSource.ItemTranslator.BingTranslator {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TranslateArray2Response", Namespace="http://schemas.datacontract.org/2004/07/Microsoft.MT.Web.Service.V2")]
+    [System.SerializableAttribute()]
+    public partial class TranslateArray2Response : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AlignmentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ErrorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FromField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int[] OriginalTextSentenceLengthsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TranslatedTextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int[] TranslatedTextSentenceLengthsField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string Alignment {
+            get {
+                return this.AlignmentField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AlignmentField, value) != true)) {
+                    this.AlignmentField = value;
+                    this.RaisePropertyChanged("Alignment");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string Error {
+            get {
+                return this.ErrorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ErrorField, value) != true)) {
+                    this.ErrorField = value;
+                    this.RaisePropertyChanged("Error");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string From {
+            get {
+                return this.FromField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FromField, value) != true)) {
+                    this.FromField = value;
+                    this.RaisePropertyChanged("From");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public int[] OriginalTextSentenceLengths {
+            get {
+                return this.OriginalTextSentenceLengthsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OriginalTextSentenceLengthsField, value) != true)) {
+                    this.OriginalTextSentenceLengthsField = value;
+                    this.RaisePropertyChanged("OriginalTextSentenceLengths");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string State {
+            get {
+                return this.StateField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StateField, value) != true)) {
+                    this.StateField = value;
+                    this.RaisePropertyChanged("State");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string TranslatedText {
+            get {
+                return this.TranslatedTextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TranslatedTextField, value) != true)) {
+                    this.TranslatedTextField = value;
+                    this.RaisePropertyChanged("TranslatedText");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public int[] TranslatedTextSentenceLengths {
+            get {
+                return this.TranslatedTextSentenceLengthsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TranslatedTextSentenceLengthsField, value) != true)) {
+                    this.TranslatedTextSentenceLengthsField = value;
+                    this.RaisePropertyChanged("TranslatedTextSentenceLengths");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="http://api.microsofttranslator.com/V2", ConfigurationName="BingTranslator.LanguageService")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://api.microsofttranslator.com/V2", ConfigurationName="AzureCogService.LanguageService")]
     public interface LanguageService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/AddTranslation", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/AddTranslationResponse")]
         void AddTranslation(string appId, string originalText, string translatedText, string from, string to, int rating, string contentType, string category, string user, string uri);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/AddTranslation", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/AddTranslationResponse")]
+        System.Threading.Tasks.Task AddTranslationAsync(string appId, string originalText, string translatedText, string from, string to, int rating, string contentType, string category, string user, string uri);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/BreakSentences", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/BreakSentencesResponse")]
         int[] BreakSentences(string appId, string text, string language);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/BreakSentences", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/BreakSentencesResponse")]
+        System.Threading.Tasks.Task<int[]> BreakSentencesAsync(string appId, string text, string language);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/Detect", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/DetectResponse")]
         string Detect(string appId, string text);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/Detect", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/DetectResponse")]
+        System.Threading.Tasks.Task<string> DetectAsync(string appId, string text);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/DetectArray", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/DetectArrayResponse")]
         string[] DetectArray(string appId, string[] texts);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/DetectArray", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/DetectArrayResponse")]
+        System.Threading.Tasks.Task<string[]> DetectArrayAsync(string appId, string[] texts);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetAppIdToken", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetAppIdTokenResponse")]
         string GetAppIdToken(string appId, int minRatingRead, int maxRatingWrite, int expireSeconds);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetAppIdToken", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetAppIdTokenResponse")]
+        System.Threading.Tasks.Task<string> GetAppIdTokenAsync(string appId, int minRatingRead, int maxRatingWrite, int expireSeconds);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetLanguageNames", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetLanguageNamesResponse")]
-        string[] GetLanguageNames(string appId, string locale, string[] languageCodes);
+        string[] GetLanguageNames(string appId, string locale, string[] languageCodes, bool useSpokenVariant);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetLanguageNames", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetLanguageNamesResponse")]
+        System.Threading.Tasks.Task<string[]> GetLanguageNamesAsync(string appId, string locale, string[] languageCodes, bool useSpokenVariant);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetLanguagesForSpeak", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetLanguagesForSpeakRespons" +
             "e")]
         string[] GetLanguagesForSpeak(string appId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetLanguagesForSpeak", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetLanguagesForSpeakRespons" +
+            "e")]
+        System.Threading.Tasks.Task<string[]> GetLanguagesForSpeakAsync(string appId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetLanguagesForTranslate", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetLanguagesForTranslateRes" +
             "ponse")]
         string[] GetLanguagesForTranslate(string appId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetLanguagesForTranslate", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetLanguagesForTranslateRes" +
+            "ponse")]
+        System.Threading.Tasks.Task<string[]> GetLanguagesForTranslateAsync(string appId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetTranslations", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetTranslationsResponse")]
-        Sitecore.SharedSource.ItemTranslator.BingTranslator.GetTranslationsResponse GetTranslations(string appId, string text, string from, string to, int maxTranslations, Sitecore.SharedSource.ItemTranslator.BingTranslator.TranslateOptions options);
+        Sitecore.SharedSource.ItemTranslator.AzureCogService.GetTranslationsResponse GetTranslations(string appId, string text, string from, string to, int maxTranslations, Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateOptions options);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetTranslations", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetTranslationsResponse")]
+        System.Threading.Tasks.Task<Sitecore.SharedSource.ItemTranslator.AzureCogService.GetTranslationsResponse> GetTranslationsAsync(string appId, string text, string from, string to, int maxTranslations, Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateOptions options);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/Translate", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/TranslateResponse")]
-        string Translate(string appId, string text, string from, string to);
+        string Translate(string appId, string text, string from, string to, string contentType, string category, string reservedFlags);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/Translate", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/TranslateResponse")]
+        System.Threading.Tasks.Task<string> TranslateAsync(string appId, string text, string from, string to, string contentType, string category, string reservedFlags);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/AddTranslationArray", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/AddTranslationArrayResponse" +
             "")]
-        void AddTranslationArray(string appId, Sitecore.SharedSource.ItemTranslator.BingTranslator.Translation[] translations, string from, string to, Sitecore.SharedSource.ItemTranslator.BingTranslator.TranslateOptions options);
+        void AddTranslationArray(string appId, Sitecore.SharedSource.ItemTranslator.AzureCogService.Translation[] translations, string from, string to, Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateOptions options);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/AddTranslationArray", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/AddTranslationArrayResponse" +
+            "")]
+        System.Threading.Tasks.Task AddTranslationArrayAsync(string appId, Sitecore.SharedSource.ItemTranslator.AzureCogService.Translation[] translations, string from, string to, Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateOptions options);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetTranslationsArray", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetTranslationsArrayRespons" +
             "e")]
-        Sitecore.SharedSource.ItemTranslator.BingTranslator.GetTranslationsResponse[] GetTranslationsArray(string appId, string[] texts, string from, string to, int maxTranslations, Sitecore.SharedSource.ItemTranslator.BingTranslator.TranslateOptions options);
+        Sitecore.SharedSource.ItemTranslator.AzureCogService.GetTranslationsResponse[] GetTranslationsArray(string appId, string[] texts, string from, string to, int maxTranslations, Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateOptions options);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetTranslationsArray", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetTranslationsArrayRespons" +
+            "e")]
+        System.Threading.Tasks.Task<Sitecore.SharedSource.ItemTranslator.AzureCogService.GetTranslationsResponse[]> GetTranslationsArrayAsync(string appId, string[] texts, string from, string to, int maxTranslations, Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateOptions options);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/Speak", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/SpeakResponse")]
-        string Speak(string appId, string text, string language, string format);
+        string Speak(string appId, string text, string language, string format, string options);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/Speak", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/SpeakResponse")]
+        System.Threading.Tasks.Task<string> SpeakAsync(string appId, string text, string language, string format, string options);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/TranslateArray", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/TranslateArrayResponse")]
-        Sitecore.SharedSource.ItemTranslator.BingTranslator.TranslateArrayResponse[] TranslateArray(string appId, string[] texts, string from, string to, Sitecore.SharedSource.ItemTranslator.BingTranslator.TranslateOptions options);
+        Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateArrayResponse[] TranslateArray(string appId, string[] texts, string from, string to, Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateOptions options);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/TranslateArray", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/TranslateArrayResponse")]
+        System.Threading.Tasks.Task<Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateArrayResponse[]> TranslateArrayAsync(string appId, string[] texts, string from, string to, Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateOptions options);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/TranslateArray2", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/TranslateArray2Response")]
+        Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateArray2Response[] TranslateArray2(string appId, string[] texts, string from, string to, Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateOptions options);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/TranslateArray2", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/TranslateArray2Response")]
+        System.Threading.Tasks.Task<Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateArray2Response[]> TranslateArray2Async(string appId, string[] texts, string from, string to, Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateOptions options);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface LanguageServiceChannel : Sitecore.SharedSource.ItemTranslator.BingTranslator.LanguageService, System.ServiceModel.IClientChannel {
+    public interface LanguageServiceChannel : Sitecore.SharedSource.ItemTranslator.AzureCogService.LanguageService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class LanguageServiceClient : System.ServiceModel.ClientBase<Sitecore.SharedSource.ItemTranslator.BingTranslator.LanguageService>, Sitecore.SharedSource.ItemTranslator.BingTranslator.LanguageService {
+    public partial class LanguageServiceClient : System.ServiceModel.ClientBase<Sitecore.SharedSource.ItemTranslator.AzureCogService.LanguageService>, Sitecore.SharedSource.ItemTranslator.AzureCogService.LanguageService {
         
         public LanguageServiceClient() {
         }
@@ -634,56 +891,120 @@ namespace Sitecore.SharedSource.ItemTranslator.BingTranslator {
             base.Channel.AddTranslation(appId, originalText, translatedText, from, to, rating, contentType, category, user, uri);
         }
         
+        public System.Threading.Tasks.Task AddTranslationAsync(string appId, string originalText, string translatedText, string from, string to, int rating, string contentType, string category, string user, string uri) {
+            return base.Channel.AddTranslationAsync(appId, originalText, translatedText, from, to, rating, contentType, category, user, uri);
+        }
+        
         public int[] BreakSentences(string appId, string text, string language) {
             return base.Channel.BreakSentences(appId, text, language);
+        }
+        
+        public System.Threading.Tasks.Task<int[]> BreakSentencesAsync(string appId, string text, string language) {
+            return base.Channel.BreakSentencesAsync(appId, text, language);
         }
         
         public string Detect(string appId, string text) {
             return base.Channel.Detect(appId, text);
         }
         
+        public System.Threading.Tasks.Task<string> DetectAsync(string appId, string text) {
+            return base.Channel.DetectAsync(appId, text);
+        }
+        
         public string[] DetectArray(string appId, string[] texts) {
             return base.Channel.DetectArray(appId, texts);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> DetectArrayAsync(string appId, string[] texts) {
+            return base.Channel.DetectArrayAsync(appId, texts);
         }
         
         public string GetAppIdToken(string appId, int minRatingRead, int maxRatingWrite, int expireSeconds) {
             return base.Channel.GetAppIdToken(appId, minRatingRead, maxRatingWrite, expireSeconds);
         }
         
-        public string[] GetLanguageNames(string appId, string locale, string[] languageCodes) {
-            return base.Channel.GetLanguageNames(appId, locale, languageCodes);
+        public System.Threading.Tasks.Task<string> GetAppIdTokenAsync(string appId, int minRatingRead, int maxRatingWrite, int expireSeconds) {
+            return base.Channel.GetAppIdTokenAsync(appId, minRatingRead, maxRatingWrite, expireSeconds);
+        }
+        
+        public string[] GetLanguageNames(string appId, string locale, string[] languageCodes, bool useSpokenVariant) {
+            return base.Channel.GetLanguageNames(appId, locale, languageCodes, useSpokenVariant);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> GetLanguageNamesAsync(string appId, string locale, string[] languageCodes, bool useSpokenVariant) {
+            return base.Channel.GetLanguageNamesAsync(appId, locale, languageCodes, useSpokenVariant);
         }
         
         public string[] GetLanguagesForSpeak(string appId) {
             return base.Channel.GetLanguagesForSpeak(appId);
         }
         
+        public System.Threading.Tasks.Task<string[]> GetLanguagesForSpeakAsync(string appId) {
+            return base.Channel.GetLanguagesForSpeakAsync(appId);
+        }
+        
         public string[] GetLanguagesForTranslate(string appId) {
             return base.Channel.GetLanguagesForTranslate(appId);
         }
         
-        public Sitecore.SharedSource.ItemTranslator.BingTranslator.GetTranslationsResponse GetTranslations(string appId, string text, string from, string to, int maxTranslations, Sitecore.SharedSource.ItemTranslator.BingTranslator.TranslateOptions options) {
+        public System.Threading.Tasks.Task<string[]> GetLanguagesForTranslateAsync(string appId) {
+            return base.Channel.GetLanguagesForTranslateAsync(appId);
+        }
+        
+        public Sitecore.SharedSource.ItemTranslator.AzureCogService.GetTranslationsResponse GetTranslations(string appId, string text, string from, string to, int maxTranslations, Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateOptions options) {
             return base.Channel.GetTranslations(appId, text, from, to, maxTranslations, options);
         }
         
-        public string Translate(string appId, string text, string from, string to) {
-            return base.Channel.Translate(appId, text, from, to);
+        public System.Threading.Tasks.Task<Sitecore.SharedSource.ItemTranslator.AzureCogService.GetTranslationsResponse> GetTranslationsAsync(string appId, string text, string from, string to, int maxTranslations, Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateOptions options) {
+            return base.Channel.GetTranslationsAsync(appId, text, from, to, maxTranslations, options);
         }
         
-        public void AddTranslationArray(string appId, Sitecore.SharedSource.ItemTranslator.BingTranslator.Translation[] translations, string from, string to, Sitecore.SharedSource.ItemTranslator.BingTranslator.TranslateOptions options) {
+        public string Translate(string appId, string text, string from, string to, string contentType, string category, string reservedFlags) {
+            return base.Channel.Translate(appId, text, from, to, contentType, category, reservedFlags);
+        }
+        
+        public System.Threading.Tasks.Task<string> TranslateAsync(string appId, string text, string from, string to, string contentType, string category, string reservedFlags) {
+            return base.Channel.TranslateAsync(appId, text, from, to, contentType, category, reservedFlags);
+        }
+        
+        public void AddTranslationArray(string appId, Sitecore.SharedSource.ItemTranslator.AzureCogService.Translation[] translations, string from, string to, Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateOptions options) {
             base.Channel.AddTranslationArray(appId, translations, from, to, options);
         }
         
-        public Sitecore.SharedSource.ItemTranslator.BingTranslator.GetTranslationsResponse[] GetTranslationsArray(string appId, string[] texts, string from, string to, int maxTranslations, Sitecore.SharedSource.ItemTranslator.BingTranslator.TranslateOptions options) {
+        public System.Threading.Tasks.Task AddTranslationArrayAsync(string appId, Sitecore.SharedSource.ItemTranslator.AzureCogService.Translation[] translations, string from, string to, Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateOptions options) {
+            return base.Channel.AddTranslationArrayAsync(appId, translations, from, to, options);
+        }
+        
+        public Sitecore.SharedSource.ItemTranslator.AzureCogService.GetTranslationsResponse[] GetTranslationsArray(string appId, string[] texts, string from, string to, int maxTranslations, Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateOptions options) {
             return base.Channel.GetTranslationsArray(appId, texts, from, to, maxTranslations, options);
         }
         
-        public string Speak(string appId, string text, string language, string format) {
-            return base.Channel.Speak(appId, text, language, format);
+        public System.Threading.Tasks.Task<Sitecore.SharedSource.ItemTranslator.AzureCogService.GetTranslationsResponse[]> GetTranslationsArrayAsync(string appId, string[] texts, string from, string to, int maxTranslations, Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateOptions options) {
+            return base.Channel.GetTranslationsArrayAsync(appId, texts, from, to, maxTranslations, options);
         }
         
-        public Sitecore.SharedSource.ItemTranslator.BingTranslator.TranslateArrayResponse[] TranslateArray(string appId, string[] texts, string from, string to, Sitecore.SharedSource.ItemTranslator.BingTranslator.TranslateOptions options) {
+        public string Speak(string appId, string text, string language, string format, string options) {
+            return base.Channel.Speak(appId, text, language, format, options);
+        }
+        
+        public System.Threading.Tasks.Task<string> SpeakAsync(string appId, string text, string language, string format, string options) {
+            return base.Channel.SpeakAsync(appId, text, language, format, options);
+        }
+        
+        public Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateArrayResponse[] TranslateArray(string appId, string[] texts, string from, string to, Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateOptions options) {
             return base.Channel.TranslateArray(appId, texts, from, to, options);
+        }
+        
+        public System.Threading.Tasks.Task<Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateArrayResponse[]> TranslateArrayAsync(string appId, string[] texts, string from, string to, Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateOptions options) {
+            return base.Channel.TranslateArrayAsync(appId, texts, from, to, options);
+        }
+        
+        public Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateArray2Response[] TranslateArray2(string appId, string[] texts, string from, string to, Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateOptions options) {
+            return base.Channel.TranslateArray2(appId, texts, from, to, options);
+        }
+        
+        public System.Threading.Tasks.Task<Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateArray2Response[]> TranslateArray2Async(string appId, string[] texts, string from, string to, Sitecore.SharedSource.ItemTranslator.AzureCogService.TranslateOptions options) {
+            return base.Channel.TranslateArray2Async(appId, texts, from, to, options);
         }
     }
 }

@@ -1,0 +1,61 @@
+<project>
+  <Metadata>
+    <metadata>
+      <PackageName>Sitecore-Item-Translator</PackageName>
+      <Author>Michael Lawrence</Author>
+      <Version>3</Version>
+      <Revision />
+      <License />
+      <Comment />
+      <Attributes />
+      <Readme />
+      <Publisher>Gatesman Agency</Publisher>
+      <PostStep />
+      <PackageID />
+    </metadata>
+  </Metadata>
+  <SaveProject>True</SaveProject>
+  <Sources>
+    <xitems>
+      <Entries>
+        <x-item>/core/sitecore/content/Applications/Content Editor/Ribbons/Chunks/Translate/Translate Item/{02E3A22A-A362-4ED8-AB09-23CEEB1F9CD9}/invariant/0</x-item>
+        <x-item>/core/sitecore/content/Applications/Content Editor/Ribbons/Chunks/Translate/Translate Tree/{8CD4EE85-7E9B-44EC-99AA-451AF63D8F69}/invariant/0</x-item>
+      </Entries>
+      <SkipVersions>False</SkipVersions>
+      <Converter>
+        <ItemToEntryConverter>
+          <Transforms />
+        </ItemToEntryConverter>
+      </Converter>
+      <Include />
+      <Exclude />
+      <Name>items</Name>
+    </xitems>
+    <xfiles>
+      <Entries>
+        <x-item>/App_Config/Include/Sitecore.SharedSource.ItemTranslator.config</x-item>
+        <x-item>/bin/GoogleTranslateAPI.dll</x-item>
+        <x-item>/bin/GoogleTranslateAPI.XML</x-item>
+        <x-item>/bin/Sitecore.SharedSource.ItemTranslator.dll</x-item>
+        <x-item>/bin/Sitecore.SharedSource.ItemTranslator.pdb</x-item>
+      </Entries>
+      <Converter>
+        <FileToEntryConverter>
+          <Root>/</Root>
+          <Transforms />
+        </FileToEntryConverter>
+      </Converter>
+      <Include />
+      <Exclude />
+      <Name>files</Name>
+    </xfiles>
+  </Sources>
+  <Converter>
+    <TrivialConverter>
+      <Transforms />
+    </TrivialConverter>
+  </Converter>
+  <Include />
+  <Exclude />
+  <Name />
+</project>

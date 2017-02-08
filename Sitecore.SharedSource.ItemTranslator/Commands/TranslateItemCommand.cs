@@ -57,23 +57,18 @@
         {
             switch (Sitecore.Configuration.Settings.GetSetting("TranslationProvider"))
             {
-                case "Google":
-                    {
-                        return new GoogleTranslateService(BaseLanguage,
-                                                          item.Language.CultureInfo.TwoLetterISOLanguageName);
-                    }
-                case "Bing":
-                    {
-                        return new BingTranslateService(BaseLanguage,
-                                                        item.Language.CultureInfo.TwoLetterISOLanguageName,
-                                                        Sitecore.Configuration.Settings.GetSetting("BingApplicationId"));
-                    }
                 case "MSTranslation":
                     {
                         return new MSTranslationService(BaseLanguage, 
                             item.Language.CultureInfo.TwoLetterISOLanguageName,
                             Sitecore.Configuration.Settings.GetSetting("MSTranslation_ClientID"),
                             Sitecore.Configuration.Settings.GetSetting("MSTranslation_ClientSecret"));
+                    }
+                case "AzureCogService":
+                    {
+                        return new AzureTranslationService(BaseLanguage,
+                            item.Language.CultureInfo.TwoLetterISOLanguageName,
+                            Sitecore.Configuration.Settings.GetSetting("Azure_SubscriptionKey"));
                     }
                 default:
                     {
@@ -85,7 +80,7 @@
 
         public void TranslateItem(Item item, ITranslationService service)
         {
-            var sourceItem = Sitecore.Context.ContentDatabase.GetItem(item.ID, Sitecore.Globalization.Language.Parse(BaseLanguage));
+            var sourceItem = Sitecore.Context.ContentDatabase.GetItem(item.ID, Sitecore.Globalization.Language.Parse(BaseLanguage), Data.Version.Latest);
 
             Job job = Context.Job;
             if (job != null)
@@ -93,8 +88,8 @@
                 job.Status.LogInfo(Translate.Text("Translating item by path {0}.", new object[] { item.Paths.FullPath }));
             }
 
-            if (item.Versions.Count == 0)
-            {
+            //if (item.Versions.Count == 0)
+            //{
                 if (sourceItem == null)
                 {
                     return;
@@ -151,7 +146,7 @@
                 }
 
                 item.Editing.EndEdit();
-            }
+            //}
         }
 
         private static bool FieldIsTranslatable(Field field)
