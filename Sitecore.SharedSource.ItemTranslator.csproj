@@ -38,35 +38,78 @@
     <Reference Include="Sitecore.Kernel">
       <HintPath>lib\Sitecore.Kernel.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sitecore.SharedSource.ItemTranslator.BingTranslator\GetTranslationsResponse.cs" />
-    <Compile Include="Sitecore.SharedSource.ItemTranslator.BingTranslator\LanguageService.cs" />
-    <Compile Include="Sitecore.SharedSource.ItemTranslator.BingTranslator\LanguageServiceChannel.cs" />
-    <Compile Include="Sitecore.SharedSource.ItemTranslator.BingTranslator\LanguageServiceClient.cs" />
-    <Compile Include="Sitecore.SharedSource.ItemTranslator.BingTranslator\TranslateArrayResponse.cs" />
-    <Compile Include="Sitecore.SharedSource.ItemTranslator.BingTranslator\TranslateOptions.cs" />
-    <Compile Include="Sitecore.SharedSource.ItemTranslator.BingTranslator\Translation.cs" />
-    <Compile Include="Sitecore.SharedSource.ItemTranslator.BingTranslator\TranslationMatch.cs" />
-    <Compile Include="Sitecore.SharedSource.ItemTranslator.Commands\TranslateItemCommand.cs" />
-    <Compile Include="Sitecore.SharedSource.ItemTranslator.Commands\TranslateTreeCommand.cs" />
-    <Compile Include="Sitecore.SharedSource.ItemTranslator\BingTranslateService.cs" />
-    <Compile Include="Sitecore.SharedSource.ItemTranslator\GoogleTranslateService.cs" />
-    <Compile Include="Sitecore.SharedSource.ItemTranslator\ITranslationService.cs" />
-    <Compile Include="Sitecore.SharedSource.ItemTranslator\MSTranslationAccessToken.cs" />
-    <Compile Include="Sitecore.SharedSource.ItemTranslator\MSTranslationAuthentication.cs" />
-    <Compile Include="Sitecore.SharedSource.ItemTranslator\MSTranslationService.cs" />
+    <Compile Include="Service References\AzureCogService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Commands\TranslateItemCommand.cs" />
+    <Compile Include="Commands\TranslateTreeCommand.cs" />
+    <Compile Include="AzureAuthToken.cs" />
+    <Compile Include="AzureTranslationService.cs" />
+    <Compile Include="GoogleTranslateService.cs" />
+    <Compile Include="ITranslationService.cs" />
+    <Compile Include="MSTranslationAccessToken.cs" />
+    <Compile Include="MSTranslationAuthentication.cs" />
+    <Compile Include="MSTranslationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="App_Config\Include\Sitecore.SharedSource.ItemTranslator.config" />
+    <None Include="Service References\AzureCogService\AzureCogService.GetTranslationsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AzureCogService\AzureCogService.TranslateArray2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AzureCogService\AzureCogService.TranslateArrayResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AzureCogService\soap.wsdl" />
+    <None Include="Service References\AzureCogService\soap.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AzureCogService\soap1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AzureCogService\soap2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AzureCogService\soap3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AzureCogService\SoapService.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\AzureCogService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AzureCogService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AzureCogService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AzureCogService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
