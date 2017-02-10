@@ -30,17 +30,21 @@ namespace Sitecore.SharedSource.ItemTranslator
         /// Gets the HTTP status code for the most recent request to the token service.
         public HttpStatusCode RequestStatusCode { get; private set; }
 
+        private readonly double _timeout;
         /// <summary>
         /// Creates a client to obtain an access token.
         /// </summary>
         /// <param name="key">Subscription key to use to get an authentication token.</param>
-        public AzureAuthToken(string key)
+        /// <param name="timeout">The timeout in milliseconds.</param>
+        /// <exception cref="System.ArgumentNullException">key;A subscription key is required</exception>
+       public AzureAuthToken(string key, double timeout)
         {
             if (string.IsNullOrEmpty(key))
             {
                 throw new ArgumentNullException("key", "A subscription key is required");
             }
 
+            _timeout = timeout;
             this.SubscriptionKey = key;
             this.RequestStatusCode = HttpStatusCode.InternalServerError;
         }
@@ -73,11 +77,39 @@ namespace Sitecore.SharedSource.ItemTranslator
                 request.RequestUri = ServiceUrl;
                 request.Content = new StringContent(string.Empty);
                 request.Headers.TryAddWithoutValidation(OcpApimSubscriptionKeyHeader, this.SubscriptionKey);
-                client.Timeout = TimeSpan.FromSeconds(2);
+                client.Timeout = TimeSpan.FromMilliseconds(_timeout);
                 var response = await client.SendAsync(request);
                 this.RequestStatusCode = response.StatusCode;
                 response.EnsureSuccessStatusCode();
                 var token = await response.Content.ReadAsStringAsync();
+                storedTokenTime = DateTime.Now;
+                storedTokenValue = "Bearer " + token;
+                return storedTokenValue;
+            }
+        }
+
+        public string GetAccessTokenSync()
+        {
+            if (SubscriptionKey == string.Empty) return string.Empty;
+
+            // Re-use the cached token if there is one.
+            if ((DateTime.Now - storedTokenTime) < TokenCacheDuration)
+            {
+                return storedTokenValue;
+            }
+
+            using (var client = new HttpClient())
+            using (var request = new HttpRequestMessage())
+            {
+                request.Method = HttpMethod.Post;
+                request.RequestUri = ServiceUrl;
+                request.Content = new StringContent(string.Empty);
+                request.Headers.TryAddWithoutValidation(OcpApimSubscriptionKeyHeader, this.SubscriptionKey);
+                client.Timeout = TimeSpan.FromSeconds(2);
+                var response = client.SendAsync(request).Result;
+                this.RequestStatusCode = response.StatusCode;
+                response.EnsureSuccessStatusCode();
+                var token = response.Content.ReadAsStringAsync().Result;
                 storedTokenTime = DateTime.Now;
                 storedTokenValue = "Bearer " + token;
                 return storedTokenValue;

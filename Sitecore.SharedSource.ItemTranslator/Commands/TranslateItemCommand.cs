@@ -68,7 +68,8 @@
                     {
                         return new AzureTranslationService(BaseLanguage,
                             item.Language.CultureInfo.TwoLetterISOLanguageName,
-                            Sitecore.Configuration.Settings.GetSetting("Azure_SubscriptionKey"));
+                            Sitecore.Configuration.Settings.GetSetting("Azure_SubscriptionKey"),
+                            Sitecore.Configuration.Settings.GetDoubleSetting("Azure_RequestTimeout", 2000));
                     }
                 default:
                     {
@@ -81,6 +82,10 @@
         public void TranslateItem(Item item, ITranslationService service)
         {
             var sourceItem = Sitecore.Context.ContentDatabase.GetItem(item.ID, Sitecore.Globalization.Language.Parse(BaseLanguage), Data.Version.Latest);
+            if (sourceItem == null)
+            {
+                return;
+            }
 
             Job job = Context.Job;
             if (job != null)
@@ -88,65 +93,58 @@
                 job.Status.LogInfo(Translate.Text("Translating item by path {0}.", new object[] { item.Paths.FullPath }));
             }
 
-            //if (item.Versions.Count == 0)
-            //{
-                if (sourceItem == null)
+            item = GenerateVersion(item, job);
+
+            item.Editing.BeginEdit();
+
+            foreach (Field field in sourceItem.Fields)
+            {
+                if (string.IsNullOrEmpty(field.Name) || (string.IsNullOrEmpty(sourceItem[field.Name]) || field.Shared))
                 {
-                    return;
+                    continue;
                 }
 
-                item = item.Versions.AddVersion();
-                item.Editing.BeginEdit();
-
-                foreach (Field field in sourceItem.Fields)
+                if (!FieldIsTranslatable(field) || FieldIsStandard(field))
                 {
-                    if (string.IsNullOrEmpty(field.Name) || (string.IsNullOrEmpty(sourceItem[field.Name]) || field.Shared))
+                    item[field.Name] = sourceItem[field.Name];
+                }
+                else
+                {
+                    if (field.TypeKey == "rich text")
                     {
-                        continue;
-                    }
+                        Sitecore.Diagnostics.Log.Info("HTML Field", "Translator");
 
-                    if (!FieldIsTranslatable(field) || FieldIsStandard(field))
-                    {
-                        item[field.Name] = sourceItem[field.Name];
+                        HtmlDocument doc = new HtmlDocument();
+                        doc.LoadHtml(sourceItem[field.Name]);
+                        HtmlNodeCollection coll = doc.DocumentNode.SelectNodes("//text()[normalize-space(.) != '']");
+
+                        foreach (HtmlNode node in coll)
+                        {
+                            if (node.InnerText == node.InnerHtml)
+                            {
+                                node.InnerHtml = service.Translate(node.InnerText);
+                            }
+                        }
+                        item[field.Name] = doc.DocumentNode.OuterHtml;
                     }
                     else
                     {
-                        if (field.TypeKey == "rich text")
+                        var text = sourceItem[field.Name];
+                        var translatedText = string.Empty;
+
+                        if (text.Length < MaxServiceRequestLength)
                         {
-                            Sitecore.Diagnostics.Log.Info("HTML Field", "Translator");
-
-                            HtmlDocument doc = new HtmlDocument();
-                            doc.LoadHtml(sourceItem[field.Name]);
-                            HtmlNodeCollection coll = doc.DocumentNode.SelectNodes("//text()[normalize-space(.) != '']");
-
-                            foreach (HtmlNode node in coll)
-                            {
-                                if (node.InnerText == node.InnerHtml)
-                                {
-                                    node.InnerHtml = service.Translate(node.InnerText);
-                                }
-                            }
-                            item[field.Name] = doc.DocumentNode.OuterHtml;
+                            item[field.Name] = service.Translate(text);
+                            continue;
                         }
-                        else
-                        {
-                            var text = sourceItem[field.Name];
-                            var translatedText = string.Empty;
+                        translatedText = SplitText(text, MaxServiceRequestLength).Aggregate(translatedText, (current, textBlock) => current + service.Translate(textBlock));
 
-                            if (text.Length < MaxServiceRequestLength)
-                            {
-                                item[field.Name] = service.Translate(text);
-                                continue;
-                            }
-                            translatedText = SplitText(text, MaxServiceRequestLength).Aggregate(translatedText, (current, textBlock) => current + service.Translate(textBlock));
-
-                            item[field.Name] = translatedText;
-                        }
+                        item[field.Name] = translatedText;
                     }
                 }
+            }
 
-                item.Editing.EndEdit();
-            //}
+            item.Editing.EndEdit();
         }
 
         private static bool FieldIsTranslatable(Field field)
@@ -194,6 +192,50 @@
             }
 
             return lines;
+        }
+
+
+        private Item GenerateVersion(Item item, Job job)
+        {
+            Item versionItem = null;
+            var vOption = Sitecore.Configuration.Settings.GetSetting("VersionOption");
+            job.Status.LogInfo(Translate.Text("Language and Option {0} and {1}.", new object[] { item.Language, vOption}));
+            if (!string.IsNullOrEmpty(vOption))
+            {
+                switch (vOption.ToUpper())
+                {
+                    case "REPLACELAST":
+                        versionItem = ReplaceLastVersion(item, job);
+                        break;
+                    case "REPLACEALL":
+                        versionItem = ReplaceAllVersions(item, job);
+                        break;
+                    default:
+                        versionItem = item.Versions.AddVersion();
+                        break;
+                }
+            }
+            else
+            {
+                versionItem = item.Versions.AddVersion();
+            }
+            return versionItem;
+
+        }
+        private Item ReplaceLastVersion(Item item, Job job)
+        {
+            job.Status.LogInfo(Translate.Text("ReplaceLastVersion {0}.", new object[] { item.Language }));
+            return item.Versions.Count > 0 ? item.Versions.GetLatestVersion() : item.Versions.AddVersion();
+        }
+
+        private Item ReplaceAllVersions(Item item, Job job)
+        {
+            job.Status.LogInfo(Translate.Text("ReplaceAllVersions {0}.", new object[] { item.Language }));
+            if (item.Versions.Count > 0)
+            {
+                item.Versions.RemoveAll(false);
+            }
+            return item.Versions.AddVersion();
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Sitecore.SharedSource.ItemTranslator
         private readonly LanguageServiceClient _translatorService;
         public string FromLanguage { get; set; }
         public string ToLanguage { get; set; }
+        private readonly double _timeout;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AzureTranslationService"/> class.
@@ -22,11 +23,13 @@ namespace Sitecore.SharedSource.ItemTranslator
         /// <param name="from">From.</param>
         /// <param name="to">To.</param>
         /// <param name="subscriptionKey">The subscription key.</param>
-        public AzureTranslationService(string from, string to, string subscriptionKey)
+        /// <param name="timeout">The timeout in milliseconds.</param>
+        public AzureTranslationService(string from, string to, string subscriptionKey, double timeout)
         {
             FromLanguage = from;
             ToLanguage = to;
             _azureSubKey = subscriptionKey;
+            _timeout = timeout;
 
             _translatorService = new LanguageServiceClient();
 
@@ -35,7 +38,7 @@ namespace Sitecore.SharedSource.ItemTranslator
         public string Translate(string text)
         {
             Diagnostics.Log.Info("Translate: " + text, "AzureTranslationService");
-            var authTokenSource = new AzureAuthToken(_azureSubKey);
+            var authTokenSource = new AzureAuthToken(_azureSubKey, _timeout);
             try
             {
                 var token = authTokenSource.GetAccessToken();
