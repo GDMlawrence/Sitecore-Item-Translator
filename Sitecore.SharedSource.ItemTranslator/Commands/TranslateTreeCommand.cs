@@ -4,7 +4,7 @@
 
     class TranslateTreeCommand : TranslateItemCommand
     {
-        protected override Item TranslateItem(Item item)
+        public override Item TranslateItem(Item item)
         {
             var translationService = GetTranslatorService(item);
 

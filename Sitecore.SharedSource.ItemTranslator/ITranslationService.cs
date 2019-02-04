@@ -1,6 +1,6 @@
 ﻿namespace Sitecore.SharedSource.ItemTranslator
 {
-    interface ITranslationService
+    public interface ITranslationService
     {
         string Translate(string text);
     }

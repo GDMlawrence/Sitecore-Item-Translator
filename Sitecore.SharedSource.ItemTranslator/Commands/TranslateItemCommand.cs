@@ -1,4 +1,6 @@
-﻿namespace Sitecore.SharedSource.ItemTranslator.Commands
+﻿using Sitecore.Data;
+
+namespace Sitecore.SharedSource.ItemTranslator.Commands
 {
     using System;
     using System.Collections.Generic;
@@ -13,7 +15,7 @@
     using Shell.Applications.Dialogs.ProgressBoxes;
     using Shell.Framework.Commands;
 
-    class TranslateItemCommand : Command
+    public class TranslateItemCommand : Command
     {
         protected const int MaxServiceRequestLength = 1000;
 
@@ -32,7 +34,7 @@
             ProgressBox.Execute("ItemSync", "Translate", this.GetIcon(context, string.Empty), TranslateItem, "item:load(id=" + item.ID + ")", new object[] { item, context });
         }
 
-        private void TranslateItem(params object[] parameters)
+        public void TranslateItem(params object[] parameters)
         {
             var context = parameters[1] as CommandContext;
             if (context != null)
@@ -45,7 +47,7 @@
             }
         }
 
-        protected virtual Item TranslateItem(Item item)
+        public virtual Item TranslateItem(Item item)
         {
             var translationService = GetTranslatorService(item);
              
@@ -81,7 +83,11 @@
 
         public void TranslateItem(Item item, ITranslationService service)
         {
-            var sourceItem = Sitecore.Context.ContentDatabase.GetItem(item.ID, Sitecore.Globalization.Language.Parse(BaseLanguage), Data.Version.Latest);
+            var database = Sitecore.Context.ContentDatabase;
+            if (database == null)
+                database = Database.GetDatabase("master");
+
+            var sourceItem = database.GetItem(item.ID, Sitecore.Globalization.Language.Parse(BaseLanguage), Data.Version.Latest);
             if (sourceItem == null)
             {
                 return;
@@ -199,7 +205,7 @@
         {
             Item versionItem = null;
             var vOption = Sitecore.Configuration.Settings.GetSetting("VersionOption");
-            job.Status.LogInfo(Translate.Text("Language and Option {0} and {1}.", new object[] { item.Language, vOption}));
+            job?.Status.LogInfo(Translate.Text("Language and Option {0} and {1}.", new object[] { item.Language, vOption }));
             if (!string.IsNullOrEmpty(vOption))
             {
                 switch (vOption.ToUpper())
@@ -224,13 +230,13 @@
         }
         private Item ReplaceLastVersion(Item item, Job job)
         {
-            job.Status.LogInfo(Translate.Text("ReplaceLastVersion {0}.", new object[] { item.Language }));
+            job?.Status.LogInfo(Translate.Text("ReplaceLastVersion {0}.", new object[] { item.Language }));
             return item.Versions.Count > 0 ? item.Versions.GetLatestVersion() : item.Versions.AddVersion();
         }
 
         private Item ReplaceAllVersions(Item item, Job job)
         {
-            job.Status.LogInfo(Translate.Text("ReplaceAllVersions {0}.", new object[] { item.Language }));
+            job?.Status.LogInfo(Translate.Text("ReplaceAllVersions {0}.", new object[] { item.Language }));
             if (item.Versions.Count > 0)
             {
                 item.Versions.RemoveAll(false);
