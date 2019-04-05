@@ -13,16 +13,24 @@ Update **Azure_SubscriptionKey** in ```Sitecore.SharedSource.ItemTranslator.conf
 Add the following to the Web.config
 
 ```
-  <system.serviceModel>
-    <bindings>
-		  <basicHttpBinding>
-			<binding name="BasicHttpBinding_LanguageService" />
-		</basicHttpBinding>
-    </bindings>
-    <client>
-		<endpoint address="http://api.microsofttranslator.com/V2/soap.svc"
-			binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_LanguageService"
-			contract="AzureCogService.LanguageService" name="BasicHttpBinding_LanguageService" />
-    </client>
-  </system.serviceModel>
+<configuration xmlns:patch="http://www.sitecore.net/xmlconfig/">
+  <sitecore>
+    <settings>
+      <setting name="TranslationProvider" value="AzureCogService"/>    
+      <setting name="BaseLanguage" value="en"/>
+
+
+      <setting name="Azure_CogService" value="https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&amp;from={0}&amp;to={1}"/>
+      <setting name="Azure_SubscriptionKey" value="Subsciption Key from Azure"/>
+      <!-- Request timeout in milliseconds -->
+      <setting name="Azure_RequestTimeout" value="6000"/>
+
+      <!-- 	New: Creates new version for language
+			ReplaceLast: replaces last version if exists, or creates new version
+			ReplaceAll: replaces all versions if exists, or creates new version -->
+      <setting name="VersionOption" value="ReplaceAll" />
+    </settings>
+  </sitecore>
+</configuration>
+
 ```

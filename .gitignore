@@ -98,3 +98,9 @@ Desktop.ini
 
 # Mac crap
 .DS_Store
+
+
+
+TranslationTests/
+.vs
+packages

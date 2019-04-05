@@ -57,28 +57,14 @@ namespace Sitecore.SharedSource.ItemTranslator.Commands
 
         protected ITranslationService GetTranslatorService(Item item)
         {
-            switch (Sitecore.Configuration.Settings.GetSetting("TranslationProvider"))
-            {
-                case "MSTranslation":
-                    {
-                        return new MSTranslationService(BaseLanguage, 
-                            item.Language.CultureInfo.TwoLetterISOLanguageName,
-                            Sitecore.Configuration.Settings.GetSetting("MSTranslation_ClientID"),
-                            Sitecore.Configuration.Settings.GetSetting("MSTranslation_ClientSecret"));
-                    }
-                case "AzureCogService":
-                    {
-                        return new AzureTranslationService(BaseLanguage,
-                            item.Language.CultureInfo.TwoLetterISOLanguageName,
-                            Sitecore.Configuration.Settings.GetSetting("Azure_SubscriptionKey"),
-                            Sitecore.Configuration.Settings.GetDoubleSetting("Azure_RequestTimeout", 2000));
-                    }
-                default:
-                    {
-                        return new GoogleTranslateService(BaseLanguage,
-                                                          item.Language.CultureInfo.TwoLetterISOLanguageName);
-                    }
-            }
+
+            return new AzureCogTranslationService(
+                Sitecore.Configuration.Settings.GetSetting("Azure_CogService"),
+                Sitecore.Configuration.Settings.GetSetting("Azure_SubscriptionKey"),
+                BaseLanguage,
+                item.Language.CultureInfo.ThreeLetterISOLanguageName,
+                double.Parse(Sitecore.Configuration.Settings.GetSetting("Azure_RequestTimeout")));
+            
         }
 
         public void TranslateItem(Item item, ITranslationService service)
