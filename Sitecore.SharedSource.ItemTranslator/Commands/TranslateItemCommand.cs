@@ -62,7 +62,7 @@ namespace Sitecore.SharedSource.ItemTranslator.Commands
                 Sitecore.Configuration.Settings.GetSetting("Azure_CogService"),
                 Sitecore.Configuration.Settings.GetSetting("Azure_SubscriptionKey"),
                 BaseLanguage,
-                item.Language.CultureInfo.ThreeLetterISOLanguageName,
+                item.Language.CultureInfo.TwoLetterISOLanguageName,
                 double.Parse(Sitecore.Configuration.Settings.GetSetting("Azure_RequestTimeout")));
             
         }
@@ -102,9 +102,9 @@ namespace Sitecore.SharedSource.ItemTranslator.Commands
                 }
                 else
                 {
+                    Sitecore.Diagnostics.Log.Info($"Translator->Field Type: {field.TypeKey}", "Translator");
                     if (field.TypeKey == "rich text")
                     {
-                        Sitecore.Diagnostics.Log.Info("HTML Field", "Translator");
 
                         HtmlDocument doc = new HtmlDocument();
                         doc.LoadHtml(sourceItem[field.Name]);
@@ -126,10 +126,14 @@ namespace Sitecore.SharedSource.ItemTranslator.Commands
 
                         if (text.Length < MaxServiceRequestLength)
                         {
+                            Sitecore.Diagnostics.Log.Info($"Translator->translating...{text} MaxServiceRequestLength: {MaxServiceRequestLength}", "Translator");
                             item[field.Name] = service.Translate(text);
                             continue;
                         }
-                        translatedText = SplitText(text, MaxServiceRequestLength).Aggregate(translatedText, (current, textBlock) => current + service.Translate(textBlock));
+                        translatedText = SplitText(text, MaxServiceRequestLength)
+                            .Aggregate(translatedText, (current, textBlock) =>
+                                current + service.Translate(textBlock)
+                                );
 
                         item[field.Name] = translatedText;
                     }
@@ -180,6 +184,7 @@ namespace Sitecore.SharedSource.ItemTranslator.Commands
                 int index = text.LastIndexOf(" ", Math.Min(text.Length, offset + numberOfSymbols));
                 string line = text.Substring(offset, (index - offset <= 0 ? text.Length : index) - offset);
                 offset += line.Length + 1;
+                Sitecore.Diagnostics.Log.Info($"Translator->splitText: {line}", "Translator");
                 lines.Add(line);
             }
 

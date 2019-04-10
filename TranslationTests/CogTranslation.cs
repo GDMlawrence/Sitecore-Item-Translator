@@ -26,5 +26,19 @@ namespace TranslationTests
             Console.WriteLine(results);
 
         }
+        [TestMethod]
+        public void RunTranslation2()
+        {
+            var from = "en";
+            var to = "fr-CA";
+            var text = "Audience";
+
+            var service = new AzureCogTranslationService(endpoint, subKey, from, to, timeout);
+            var results = service.Translate(text);
+            Assert.IsNotNull(results);
+
+            Console.WriteLine(results);
+
+        }
     }
 }

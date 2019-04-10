@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using Newtonsoft.Json;
 using System.Net.Http;
@@ -46,6 +47,15 @@ namespace Sitecore.SharedSource.ItemTranslator
                 client.Timeout = TimeSpan.FromMilliseconds(Timeout);
                 var response = client.SendAsync(request).Result;
                 var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                if (!response.IsSuccessStatusCode)
+                {
+                    var sb = new StringBuilder();
+                    sb.AppendLine($"Response: {jsonResponse}")
+                        .AppendLine($"Reason: {response.ReasonPhrase}")
+                        .AppendLine($"Status Code: {response.StatusCode.ToString()}")
+                        .AppendLine($"Endpoint: {serviceEndpoint}");
+                    throw new WebException(sb.ToString());
+                }
                 if (string.IsNullOrEmpty(jsonResponse)) return text;
                 var data = JsonConvert.DeserializeObject<List<TranslationResponse>>(jsonResponse);
                 return data.FirstOrDefault()?.Translations.Select(d => d.Text).FirstOrDefault();
